@@ -1,0 +1,355 @@
+SECTION A - BOOK SERVICE (TESTS 01-08)
+====================================================================
+
+TEST 01 - GET All Books
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/books
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 193
+date: Wed, 18 Nov 2026 19:19:16 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+[
+  {
+    "id": 1,
+    "title": "Introduction to Computing",
+    "author": "John Smith"
+  },
+  {
+    "id": 2,
+    "title": "Distributed Systems Fundamentals",
+    "author": "Alice Brown"
+  }
+]
+
+TEST 02 - GET Book by ID 1
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/books/1
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 80
+date: Wed, 18 Nov 2026 19:19:42 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 1,
+  "title": "Introduction to Computing",
+  "author": "John Smith"
+}
+
+TEST 03 - POST New Book (ID 901)
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> '{"id":901,"title":"QA Book","author":"QA Author"}' | curl.exe -i -X POST http://localhost:4000/books -H "Content-Type: application/json" --data-binary '@-'
+HTTP/1.1 201 Created
+content-type: application/json; charset=utf-8
+content-length: 63
+location: /books/901
+date: Wed, 18 Nov 2026 19:20:23 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "title": "QA Book",
+  "author": "QA Author"
+}
+
+TEST 04 - GET Newly Created Book
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/books/901
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 63
+date: Wed, 18 Nov 2026 19:21:20 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "title": "QA Book",
+  "author": "QA Author"
+}
+
+TEST 05 - PUT Update Book ID 901
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> '{"title":"QA Updated Book","author":"QA Author"}' | curl.exe -i -X PUT -H 'Content-Type: application/json' --data-binary '@-' http://localhost:4000/books/901
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 71
+date: Wed, 18 Nov 2026 19:21:57 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "title": "QA Updated Book",
+  "author": "QA Author"
+}
+
+TEST 06 - GET Updated Book
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/books/901
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 71
+date: Wed, 18 Nov 2026 19:22:26 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "title": "QA Updated Book",
+  "author": "QA Author"
+}
+
+TEST 07 - DELETE Book ID 901
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X DELETE http://localhost:4000/books/901
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 127
+date: Wed, 18 Nov 2026 19:23:17 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "message": "Record deleted.",
+  "record": {
+    "id": 901,
+    "title": "QA Updated Book",
+    "author": "QA Author"
+  }
+}
+
+TEST 08 - GET Deleted Book
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/books/901
+HTTP/1.1 404 Not Found
+content-type: application/json; charset=utf-8
+content-length: 35
+date: Wed, 18 Nov 2026 19:23:38 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Record not found."
+}
+
+====================================================================
+SECTION B - STUDENT SERVICE (TESTS 09-16)
+====================================================================
+
+TEST 09 - GET All Students
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/students
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 167
+date: Wed, 18 Nov 2026 19:23:55 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+[
+  {
+    "id": 1,
+    "name": "Rahul Patel",
+    "email": "rahul@example.com"
+  },
+  {
+    "id": 2,
+    "name": "Emily Jones",
+    "email": "emily@example.com"
+  }
+]
+
+TEST 10 - GET Student by ID 1
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/students/1
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 71
+date: Wed, 18 Nov 2026 19:24:19 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 1,
+  "name": "Rahul Patel",
+  "email": "rahul@example.com"
+}
+
+TEST 11 - POST New Student (ID 901)
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> '{"id":901,"name":"QA Student","email":"qa@example.com"}' | curl.exe -i -X POST -H 'Content-Type: application/json' --data-binary '@-' http://localhost:4000/students
+>> 
+HTTP/1.1 201 Created
+content-type: application/json; charset=utf-8
+content-length: 69
+location: /students/901
+date: Wed, 18 Nov 2026 19:24:40 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "name": "QA Student",
+  "email": "qa@example.com"
+}
+
+TEST 12 - GET Newly Created Student
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/students/901
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 69
+date: Wed, 18 Nov 2026 19:25:22 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "name": "QA Student",
+  "email": "qa@example.com"
+}
+
+TEST 13 - PUT Update Student ID 901
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> '{"name":"QA Updated Student","email":"updated@example.com"}' | curl.exe -i -X PUT -H 'Content-Type: application/json' --data-binary '@-' http://localhost:4000/students/901
+>> 
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 82
+date: Wed, 18 Nov 2026 19:25:38 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "name": "QA Updated Student",
+  "email": "updated@example.com"
+}
+
+TEST 14 - GET Updated Student
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/students/901
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 82
+date: Wed, 18 Nov 2026 19:26:00 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "id": 901,
+  "name": "QA Updated Student",
+  "email": "updated@example.com"
+}
+
+TEST 15 - DELETE Student ID 901
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X DELETE http://localhost:4000/students/901
+HTTP/1.1 200 OK
+content-type: application/json; charset=utf-8
+content-length: 138
+date: Wed, 18 Nov 2026 19:26:17 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "message": "Record deleted.",
+  "record": {
+    "id": 901,
+    "name": "QA Updated Student",
+    "email": "updated@example.com"
+  }
+}
+
+TEST 16 - GET Deleted Student
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/students/901
+HTTP/1.1 404 Not Found
+content-type: application/json; charset=utf-8
+content-length: 35
+date: Wed, 18 Nov 2026 19:26:32 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Record not found."
+}
+
+ION C - API GATEWAY AND ERROR ROUTES (TESTS 17-20)
+====================================================================
+
+TEST 17 - Incorrect Book Route
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/book
+HTTP/1.1 404 Not Found
+Content-Type: application/json; charset=utf-8
+Content-Length: 79
+Date: Wed, 18 Nov 2026 19:26:49 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Route not found. Use /books or /students with an optional id."
+}
+
+TEST 18 - Incorrect Student Route
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/student
+HTTP/1.1 404 Not Found
+Content-Type: application/json; charset=utf-8
+Content-Length: 79
+Date: Wed, 18 Nov 2026 19:27:12 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Route not found. Use /books or /students with an optional id."
+}
+
+TEST 19 - Book Service Unavailable
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/books
+HTTP/1.1 502 Bad Gateway
+Content-Type: application/json; charset=utf-8
+Content-Length: 59
+Date: Wed, 18 Nov 2026 19:28:25 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Backend service unavailable or timed out."
+}
+
+TEST 20 - Student Service Unavailable
+
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X GET http://localhost:4000/students
+HTTP/1.1 502 Bad Gateway
+Content-Type: application/json; charset=utf-8
+Content-Length: 59
+Date: Wed, 18 Nov 2026 23:30:44 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Backend service unavailable or timed out."
+}
+
+
+====================================================================
+SECTION D - ADDITIONAL VALIDATION TESTS (TESTS 21-22)
+====================================================================
+
+TEST 21 - POST Invalid Book Data (Missing Title and Author)
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> '{"id":902}' | curl.exe -i -X POST -H "Content-Type: application/json" --data-binary "@-" http://localhost:4000/books
+HTTP/1.1 400 Bad Request
+content-type: application/json; charset=utf-8
+content-length: 78
+date: Wed, 18 Nov 2026 23:35:47 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Supply only id and required non-empty fields: title, author."
+}
+
+TEST 22 - Unsupported HTTP Method (PATCH)
+
+PS C:\Users\Lenovo\Desktop\smart-library-system-new(18-11)> curl.exe -i -X PATCH http://localhost:4000/students/1
+HTTP/1.1 405 Method Not Allowed
+content-type: application/json; charset=utf-8
+content-length: 37
+allow: GET, PUT, DELETE
+date: Wed, 18 Nov 2026 23:36:17 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{
+  "error": "Method not allowed."
+}

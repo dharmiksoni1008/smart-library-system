@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "title": "Introduction to Computing",
+    "author": "John Smith"
+  },
+  {
+    "id": 2,
+    "title": "Distributed Systems Fundamentals",
+    "author": "Alice Brown"
+  }
+]
